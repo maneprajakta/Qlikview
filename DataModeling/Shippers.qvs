@@ -1,0 +1,195 @@
+﻿///$tab Main
+SET ThousandSep=',';
+SET DecimalSep='.';
+SET MoneyThousandSep=',';
+SET MoneyDecimalSep='.';
+SET MoneyFormat='₹ #,##0.00;-₹ #,##0.00';
+SET TimeFormat='h:mm:ss TT';
+SET DateFormat='DD/MM/YYYY';
+SET TimestampFormat='DD/MM/YYYY h:mm:ss[.fff] TT';
+SET FirstWeekDay=6;
+SET BrokenWeeks=1;
+SET ReferenceDay=0;
+SET FirstMonthOfYear=1;
+SET CollationLocale='en-IN';
+SET MonthNames='Jan;Feb;Mar;Apr;May;Jun;Jul;Aug;Sep;Oct;Nov;Dec';
+SET LongMonthNames='January;February;March;April;May;June;July;August;September;October;November;December';
+SET DayNames='Mon;Tue;Wed;Thu;Fri;Sat;Sun';
+SET LongDayNames='Monday;Tuesday;Wednesday;Thursday;Friday;Saturday;Sunday';
+
+OLEDB CONNECT32 TO [Provider=Microsoft.Jet.OLEDB.4.0;User ID=Admin;Data Source=C:\Users\praja\OneDrive\Documents\QWT.mdb;Mode=Share Deny None;Extended Properties="";Jet OLEDB:System database="";Jet OLEDB:Registry Path="";Jet OLEDB:Database Password="";Jet OLEDB:Engine Type=5;Jet OLEDB:Database Locking Mode=1;Jet OLEDB:Global Partial Bulk Ops=2;Jet OLEDB:Global Bulk Transactions=1;Jet OLEDB:New Database Password="";Jet OLEDB:Create System Database=False;Jet OLEDB:Encrypt Database=False;Jet OLEDB:Don't Copy Locale on Compact=False;Jet OLEDB:Compact Without Replica Repair=False;Jet OLEDB:SFP=False];
+
+Categories:
+LOAD CategoryID,
+    CategoryName,
+    Description;
+SQL SELECT *
+FROM Categories;
+store Categories into C:\Users\praja\OneDrive\Documents\Categories.qvd; 
+
+Customers:
+LOAD Address,
+    City,
+    CompanyName,
+    ContactName,
+    Country,
+    CustomerID,
+    DivisionID,
+    Fax,
+    Phone,
+    PostalCode,
+    StateProvince;
+SQL SELECT *
+FROM Customers;
+store Customers into C:\Users\praja\OneDrive\Documents\Customers.qvd; 
+
+
+
+Divisions:
+LOAD DivisionID,
+    DivisionName;
+SQL SELECT *
+FROM Divisions;
+store Divisions into C:\Users\praja\OneDrive\Documents\Divisions.qvd; 
+
+
+
+Order_Details:
+LOAD Discount,
+    LineNo,
+    OrderID,
+    ProductID,
+    Quantity,
+    UnitPrice;
+SQL SELECT *
+FROM `Order Details`;
+store Order_Details into C:\Users\praja\OneDrive\Documents\Order_Details.qvd; 
+
+
+Orders:
+LOAD CustomerID,
+    EmployeeID,
+    Freight,
+    OrderDate,
+    OrderID,
+    ShipperID;
+SQL SELECT *
+FROM Orders;
+store Orders into C:\Users\praja\OneDrive\Documents\Orders.qvd; 
+
+
+Products:
+LOAD CategoryID,
+    ProductID,
+    ProductName,
+    QuantityPerUnit,
+    SupplierID,
+    UnitCost,
+    UnitPrice,
+    UnitsInStock,
+    UnitsOnOrder;
+SQL SELECT *
+FROM Products;
+store Products into C:\Users\praja\OneDrive\Documents\Products.qvd; 
+
+Shipments:
+LOAD CustomerID,
+    EmployeeID,
+    LineNo,
+    OrderID,
+    ProductID,
+    ShipmentDate,
+    ShipperID;
+SQL SELECT *
+FROM Shipments;
+store Shipments into C:\Users\praja\OneDrive\Documents\Shipments.qvd; 
+
+Shippers:
+LOAD CompanyName,
+    ShipperID;
+SQL SELECT *
+FROM Shippers;
+store Shippers into C:\Users\praja\OneDrive\Documents\Shippers.qvd; 
+
+DROP Tables Customers,Shippers,Shipments,Products,Orders,Order_Details,Divisions,Categories;
+
+//after drop in table viewer no table can be seen.
+///$tab Customers
+LOAD Address, 
+     City, 
+     CompanyName, 
+     ContactName, 
+     Country, 
+     CustomerID, 
+     DivisionID, 
+     Fax, 
+     Phone, 
+     PostalCode, 
+     StateProvince
+FROM
+[C:\Users\praja\OneDrive\Documents\Customers.qvd]
+(qvd);
+
+///$tab Orders
+LOAD CustomerID, 
+     EmployeeID, 
+     Freight, 
+     OrderDate, 
+     OrderID, 
+     ShipperID
+FROM
+[C:\Users\praja\OneDrive\Documents\Orders.qvd]
+(qvd);
+
+///$tab Divisions
+LOAD DivisionID, 
+     DivisionName
+FROM
+[C:\Users\praja\OneDrive\Documents\Divisions.qvd]
+(qvd);
+
+///$tab Order Details
+LOAD Discount, 
+     LineNo, 
+     OrderID, 
+     ProductID, 
+     Quantity, 
+     UnitPrice
+FROM
+[C:\Users\praja\OneDrive\Documents\Order_Details.qvd]
+(qvd);
+
+///$tab Shippers
+LOAD CompanyName as CP_Name, 
+     ShipperID
+FROM
+[C:\Users\praja\OneDrive\Documents\Shippers.qvd]
+(qvd);
+
+///$tab Shipments
+LOAD CustomerID, 
+     EmployeeID, 
+     LineNo, 
+     OrderID, 
+     ProductID, 
+     ShipmentDate, 
+     ShipperID
+FROM
+[C:\Users\praja\OneDrive\Documents\Shipments.qvd]
+(qvd);
+
+
+///$tab Products
+LOAD CategoryID, 
+     ProductID, 
+     ProductName, 
+     QuantityPerUnit, 
+     SupplierID, 
+     UnitCost, 
+     UnitPrice as ProductUnitPrice, 
+     UnitsInStock, 
+     UnitsOnOrder
+FROM
+[C:\Users\praja\OneDrive\Documents\Products.qvd]
+(qvd);
+
